@@ -1,0 +1,3321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BPSMUN '27 | Birla Public School</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#000;
+    color:#fff;
+    font-family:Arial, Helvetica, sans-serif;
+    overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font-family:inherit;
+}
+
+::selection{
+    background:#e50914;
+    color:#fff;
+}
+
+
+/* =========================================================
+   FIXED SCHOOL PHOTO
+========================================================= */
+
+.fixed-school{
+    position:fixed;
+    inset:0;
+    z-index:-20;
+    overflow:hidden;
+}
+
+.fixed-school img{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    object-position:center;
+
+    filter:brightness(.55) contrast(1.05);
+
+    transform:scale(1.04);
+
+    animation:
+        backgroundZoom 18s ease-out forwards;
+}
+
+@keyframes backgroundZoom{
+
+    from{
+        transform:scale(1.08);
+    }
+
+    to{
+        transform:scale(1.04);
+    }
+
+}
+
+
+/* Dark cinematic overlay */
+
+.fixed-school::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.94) 0%,
+            rgba(0,0,0,.70) 42%,
+            rgba(0,0,0,.48) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(0,0,0,.92) 0%,
+            rgba(0,0,0,.25) 45%,
+            rgba(0,0,0,.82) 100%
+        );
+}
+
+
+/* Red atmospheric glow */
+
+.fixed-school::before{
+    content:"";
+
+    position:absolute;
+
+    width:800px;
+    height:800px;
+
+    right:-350px;
+    top:20%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(229,9,20,.30),
+            transparent 68%
+        );
+
+    filter:blur(80px);
+
+    z-index:2;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:82px;
+
+    padding:0 5%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    z-index:5000;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.92),
+            transparent
+        );
+}
+
+
+.brand{
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+}
+
+
+.brand img{
+
+    width:48px;
+    height:48px;
+
+    object-fit:contain;
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            rgba(255,255,255,.25)
+        );
+}
+
+
+.brand-name{
+
+    font-size:20px;
+    font-weight:900;
+
+    letter-spacing:-1px;
+}
+
+
+.brand-name span{
+    color:#e50914;
+}
+
+
+.nav-right{
+
+    display:flex;
+    align-items:center;
+
+    gap:20px;
+}
+
+
+.edition{
+
+    color:#aaa;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+}
+
+
+.menu-button{
+
+    width:52px;
+    height:52px;
+
+    background:rgba(0,0,0,.75);
+
+    border:1px solid #555;
+
+    cursor:pointer;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:6px;
+
+    transition:.3s;
+}
+
+
+.menu-button span{
+
+    width:24px;
+    height:2px;
+
+    background:white;
+
+    transition:.3s;
+}
+
+
+.menu-button:hover{
+
+    background:#e50914;
+
+    border-color:#e50914;
+}
+
+
+/* =========================================================
+   FULL SCREEN MENU
+========================================================= */
+
+.menu{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9000;
+
+    background:#030303;
+
+    transform:translateY(-100%);
+
+    transition:
+        transform .65s
+        cubic-bezier(.77,0,.18,1);
+
+    overflow-y:auto;
+}
+
+
+.menu.open{
+    transform:translateY(0);
+}
+
+
+.menu-header{
+
+    height:82px;
+
+    padding:0 5%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border-bottom:1px solid #222;
+}
+
+
+.close-button{
+
+    width:52px;
+    height:52px;
+
+    background:#000;
+
+    border:1px solid #444;
+
+    cursor:pointer;
+
+    position:relative;
+}
+
+
+.close-button span{
+
+    position:absolute;
+
+    left:13px;
+    top:25px;
+
+    width:25px;
+    height:2px;
+
+    background:white;
+}
+
+
+.close-button span:first-child{
+    transform:rotate(45deg);
+}
+
+
+.close-button span:last-child{
+    transform:rotate(-45deg);
+}
+
+
+.menu-inner{
+
+    padding:70px 8%;
+}
+
+
+.menu-label{
+
+    color:#e50914;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:4px;
+
+    margin-bottom:25px;
+}
+
+
+.menu-link{
+
+    display:block;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #222;
+
+    font-size:
+        clamp(40px,6vw,85px);
+
+    font-weight:900;
+
+    letter-spacing:-5px;
+
+    transition:.3s;
+}
+
+
+.menu-link:hover{
+
+    color:#e50914;
+
+    padding-left:20px;
+}
+
+
+.menu-number{
+
+    display:inline-block;
+
+    width:60px;
+
+    color:#555;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+}
+
+
+.menu-contact{
+
+    margin-top:50px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:30px;
+
+    color:#666;
+
+    font-size:11px;
+
+    line-height:2;
+}
+
+
+.menu-contact a:hover{
+    color:#e50914;
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+section{
+
+    position:relative;
+
+    background:
+        rgba(0,0,0,.52);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+
+.section-inner{
+
+    width:90%;
+
+    max-width:1450px;
+
+    margin:auto;
+}
+
+
+.label{
+
+    color:#e50914;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:4px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    position:relative;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.82),
+            rgba(0,0,0,.25)
+        );
+}
+
+
+.hero-content{
+
+    width:90%;
+
+    max-width:1450px;
+
+    margin:auto;
+
+    padding-top:60px;
+
+    position:relative;
+
+    z-index:5;
+}
+
+
+.hero-logo{
+
+    width:105px;
+    height:105px;
+
+    object-fit:contain;
+
+    margin-bottom:28px;
+
+    filter:
+        drop-shadow(
+            0 0 30px
+            rgba(255,255,255,.3)
+        );
+}
+
+
+.hero-kicker{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:4px;
+
+    color:#ddd;
+}
+
+
+.hero-kicker::before{
+
+    content:"";
+
+    width:50px;
+    height:2px;
+
+    background:#e50914;
+}
+
+
+.hero h1{
+
+    margin-top:22px;
+
+    font-size:
+        clamp(75px,13vw,185px);
+
+    line-height:.76;
+
+    letter-spacing:-11px;
+
+    font-weight:900;
+}
+
+
+.hero h1 span{
+    color:#e50914;
+}
+
+
+.hero-description{
+
+    max-width:650px;
+
+    margin-top:35px;
+
+    color:#ccc;
+
+    font-size:16px;
+
+    line-height:1.8;
+}
+
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:35px;
+
+    flex-wrap:wrap;
+}
+
+
+.button{
+
+    padding:17px 25px;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    transition:.3s;
+}
+
+
+.button-red{
+
+    background:#e50914;
+
+    border:1px solid #e50914;
+}
+
+
+.button-red:hover{
+
+    background:#fff;
+
+    color:#000;
+
+    border-color:#fff;
+}
+
+
+.button-outline{
+
+    border:1px solid #777;
+
+    background:rgba(0,0,0,.5);
+}
+
+
+.button-outline:hover{
+
+    background:#fff;
+
+    color:#000;
+}
+
+
+.hero-meta{
+
+    position:absolute;
+
+    left:5%;
+    right:5%;
+    bottom:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    z-index:5;
+
+    color:#777;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+
+    line-height:1.8;
+}
+
+
+.scroll-indicator{
+
+    text-align:center;
+
+    color:#aaa;
+}
+
+
+.scroll-indicator span{
+
+    display:block;
+
+    color:#fff;
+
+    font-size:22px;
+
+    margin-top:5px;
+
+    animation:
+        scrollBounce 1.5s infinite;
+}
+
+
+@keyframes scrollBounce{
+
+    50%{
+        transform:translateY(8px);
+    }
+
+}
+
+
+/* =========================================================
+   CINEMATIC STATEMENT
+========================================================= */
+
+.statement{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:130px 0;
+}
+
+
+.statement h2{
+
+    margin-top:25px;
+
+    font-size:
+        clamp(60px,9.5vw,145px);
+
+    line-height:.82;
+
+    letter-spacing:-8px;
+}
+
+
+.statement h2 span{
+    color:#e50914;
+}
+
+
+.statement p{
+
+    max-width:680px;
+
+    margin-top:45px;
+
+    color:#999;
+
+    font-size:17px;
+
+    line-height:1.9;
+}
+
+
+/* =========================================================
+   COMING SOON
+========================================================= */
+
+.coming{
+
+    padding:130px 0;
+
+    background:
+        rgba(229,9,20,.88);
+}
+
+
+.coming-inner{
+
+    width:90%;
+
+    max-width:1450px;
+
+    margin:auto;
+
+    position:relative;
+}
+
+
+.coming::after{
+
+    content:"27";
+
+    position:absolute;
+
+    right:-30px;
+
+    top:-130px;
+
+    font-size:520px;
+
+    font-weight:900;
+
+    line-height:1;
+
+    color:rgba(0,0,0,.08);
+
+    pointer-events:none;
+}
+
+
+.coming-title{
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+.coming h2{
+
+    margin-top:18px;
+
+    font-size:
+        clamp(60px,9vw,135px);
+
+    line-height:.8;
+
+    letter-spacing:-8px;
+}
+
+
+.countdown{
+
+    position:relative;
+
+    z-index:2;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:2px;
+
+    margin-top:60px;
+}
+
+
+.time{
+
+    background:#050505;
+
+    padding:35px 15px;
+
+    text-align:center;
+}
+
+
+.time strong{
+
+    display:block;
+
+    font-size:
+        clamp(45px,7vw,100px);
+
+    letter-spacing:-5px;
+}
+
+
+.time span{
+
+    display:block;
+
+    margin-top:12px;
+
+    color:#777;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+}
+
+
+/* =========================================================
+   ABOUT BPS
+========================================================= */
+
+.about{
+
+    min-height:100vh;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    align-items:center;
+
+    padding:100px 0;
+
+    background:
+        rgba(0,0,0,.72);
+}
+
+
+.about-image{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+}
+
+
+.about-image img{
+
+    width:85%;
+
+    max-width:650px;
+
+    aspect-ratio:16/10;
+
+    object-fit:cover;
+
+    filter:
+        brightness(.75)
+        contrast(1.05);
+
+    box-shadow:
+        0 0 70px
+        rgba(0,0,0,.9),
+
+        0 0 50px
+        rgba(255,255,255,.08);
+}
+
+
+.about-content{
+
+    padding:70px;
+}
+
+
+.about-content h2{
+
+    margin-top:20px;
+
+    font-size:
+        clamp(60px,8vw,120px);
+
+    line-height:.8;
+
+    letter-spacing:-7px;
+}
+
+
+.about-content h2 span{
+    color:#e50914;
+}
+
+
+.about-content p{
+
+    max-width:600px;
+
+    margin-top:35px;
+
+    color:#999;
+
+    line-height:1.9;
+}
+
+
+.red-line{
+
+    width:70px;
+
+    height:2px;
+
+    background:#e50914;
+
+    margin-top:30px;
+}
+
+
+/* =========================================================
+   COMMITTEES
+========================================================= */
+
+.committees{
+
+    padding:140px 0;
+
+    background:
+        rgba(0,0,0,.78);
+}
+
+
+.heading{
+
+    width:90%;
+
+    max-width:1450px;
+
+    margin:auto;
+}
+
+
+.heading h2{
+
+    margin-top:20px;
+
+    font-size:
+        clamp(60px,9vw,135px);
+
+    line-height:.8;
+
+    letter-spacing:-8px;
+}
+
+
+.heading h2 span{
+    color:#e50914;
+}
+
+
+.heading p{
+
+    max-width:650px;
+
+    margin-top:30px;
+
+    color:#777;
+
+    line-height:1.8;
+}
+
+
+.committee-grid{
+
+    width:90%;
+
+    max-width:1450px;
+
+    margin:
+        70px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:2px;
+
+    background:#333;
+}
+
+
+.committee{
+
+    min-height:320px;
+
+    padding:35px;
+
+    background:
+        rgba(3,3,3,.95);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    transition:.4s;
+}
+
+
+.committee:hover{
+
+    background:#e50914;
+
+    transform:translateY(-3px);
+}
+
+
+.committee-number{
+
+    color:#555;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+}
+
+
+.committee h3{
+
+    font-size:
+        clamp(45px,5vw,75px);
+
+    letter-spacing:-4px;
+}
+
+
+.committee p{
+
+    color:#777;
+
+    font-size:13px;
+
+    margin-top:10px;
+}
+
+
+.committee:hover
+.committee-number,
+.committee:hover p{
+
+    color:#fff;
+}
+
+
+/* =========================================================
+   SECRETARIAT
+========================================================= */
+
+.secretariat{
+
+    padding:140px 0;
+
+    background:
+        rgba(0,0,0,.84);
+}
+
+
+.people{
+
+    width:90%;
+
+    max-width:1450px;
+
+    margin:
+        70px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:8px;
+}
+
+
+.person{
+
+    min-height:470px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#111;
+}
+
+
+.person img{
+
+    width:100%;
+
+    height:100%;
+
+    min-height:470px;
+
+    object-fit:cover;
+
+    filter:
+        grayscale(100%)
+        brightness(.7);
+
+    transition:.6s;
+}
+
+
+.person::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            0deg,
+            rgba(0,0,0,.98),
+            transparent 60%
+        );
+}
+
+
+.person:hover img{
+
+    filter:
+        grayscale(0)
+        brightness(.9);
+
+    transform:scale(1.05);
+}
+
+
+.person-info{
+
+    position:absolute;
+
+    z-index:2;
+
+    left:25px;
+
+    bottom:25px;
+}
+
+
+.person-role{
+
+    color:#e50914;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+}
+
+
+.person-name{
+
+    margin-top:8px;
+
+    font-size:25px;
+
+    font-weight:900;
+}
+
+
+/* =========================================================
+   ADDRESSAL
+========================================================= */
+
+.addressal{
+
+    padding:140px 0;
+
+    background:
+        rgba(0,0,0,.88);
+}
+
+
+.address{
+
+    width:90%;
+
+    max-width:1450px;
+
+    margin:
+        90px auto 0;
+
+    min-height:600px;
+
+    display:grid;
+
+    grid-template-columns:
+        40% 60%;
+
+    align-items:center;
+
+    border-bottom:
+        1px solid #222;
+}
+
+
+.address-photo{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    padding:50px;
+}
+
+
+.address-photo::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:80%;
+
+    height:80%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.25),
+            rgba(229,9,20,.08),
+            transparent 70%
+        );
+
+    filter:blur(55px);
+}
+
+
+.address-photo img{
+
+    position:relative;
+
+    z-index:2;
+
+    width:75%;
+
+    max-width:390px;
+
+    aspect-ratio:4/5;
+
+    object-fit:cover;
+
+    filter:
+        grayscale(100%);
+
+    box-shadow:
+        0 0 50px
+        rgba(0,0,0,.9);
+
+    transition:.5s;
+}
+
+
+.address:hover
+.address-photo img{
+
+    filter:grayscale(0);
+
+    transform:scale(1.02);
+}
+
+
+.address-content{
+
+    padding:70px;
+}
+
+
+.address-number{
+
+    color:#e50914;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:4px;
+}
+
+
+.address h3{
+
+    margin-top:25px;
+
+    font-size:
+        clamp(45px,6vw,85px);
+
+    line-height:.85;
+
+    letter-spacing:-5px;
+}
+
+
+.address h3 span{
+    color:#e50914;
+}
+
+
+.designation{
+
+    margin-top:25px;
+
+    color:#666;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+}
+
+
+.message{
+
+    max-width:650px;
+
+    margin-top:35px;
+
+    color:#888;
+
+    font-size:16px;
+
+    line-height:1.9;
+}
+
+
+.signature{
+
+    margin-top:35px;
+
+    padding-top:18px;
+
+    border-top:1px solid #333;
+
+    color:#666;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+}
+
+
+/* =========================================================
+   COCA COLA
+========================================================= */
+
+.sponsor{
+
+    padding:140px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(229,9,20,.95),
+            rgba(120,0,5,.95)
+        );
+}
+
+
+.sponsor-inner{
+
+    width:90%;
+
+    max-width:1450px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:70px;
+}
+
+
+.sponsor h2{
+
+    font-size:
+        clamp(55px,8vw,115px);
+
+    line-height:.8;
+
+    letter-spacing:-7px;
+}
+
+
+.sponsor-copy{
+
+    max-width:430px;
+}
+
+
+.sponsor-copy small{
+
+    font-size:9px;
+
+    letter-spacing:4px;
+}
+
+
+.sponsor-copy h3{
+
+    margin-top:15px;
+
+    font-size:44px;
+}
+
+
+.sponsor-copy p{
+
+    margin-top:15px;
+
+    line-height:1.8;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+
+    min-height:80vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:120px 20px;
+
+    background:
+        rgba(0,0,0,.91);
+}
+
+
+.contact h2{
+
+    margin-top:20px;
+
+    font-size:
+        clamp(60px,10vw,145px);
+
+    line-height:.78;
+
+    letter-spacing:-8px;
+}
+
+
+.contact h2 span{
+    color:#e50914;
+}
+
+
+.contact p{
+
+    max-width:600px;
+
+    margin:
+        35px auto;
+
+    color:#777;
+
+    line-height:1.8;
+}
+
+
+.contact-button{
+
+    display:inline-block;
+
+    padding:19px 30px;
+
+    background:#e50914;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    transition:.3s;
+}
+
+
+.contact-button:hover{
+
+    background:#fff;
+
+    color:#000;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+    position:relative;
+
+    z-index:2;
+
+    padding:
+        60px 7%
+        30px;
+
+    background:#030303;
+
+    border-top:
+        1px solid #222;
+
+    display:grid;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr;
+
+    gap:40px;
+}
+
+
+.footer-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+
+.footer-brand img{
+
+    width:50px;
+    height:50px;
+
+    object-fit:contain;
+}
+
+
+.footer-brand strong{
+
+    font-size:25px;
+}
+
+
+.footer-brand span{
+    color:#e50914;
+}
+
+
+.footer-info{
+
+    margin-top:15px;
+
+    color:#666;
+
+    font-size:11px;
+
+    line-height:2;
+}
+
+
+.footer-info a:hover{
+    color:#e50914;
+}
+
+
+.footer-right{
+
+    text-align:right;
+
+    color:#444;
+
+    font-size:10px;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:950px){
+
+    .edition{
+        display:none;
+    }
+
+    .about{
+
+        grid-template-columns:1fr;
+    }
+
+    .about-content{
+        padding:70px 5%;
+    }
+
+    .committee-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .people{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .address{
+
+        grid-template-columns:1fr;
+    }
+
+    .sponsor-inner{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    footer{
+
+        grid-template-columns:1fr;
+    }
+
+    .footer-right{
+
+        text-align:left;
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .navbar{
+
+        height:70px;
+
+        padding:
+            0 20px;
+    }
+
+    .brand img{
+
+        width:40px;
+        height:40px;
+    }
+
+    .brand-name{
+
+        font-size:17px;
+    }
+
+    .menu-inner{
+
+        padding:
+            45px 22px;
+    }
+
+    .menu-link{
+
+        font-size:43px;
+
+        letter-spacing:-3px;
+    }
+
+    .menu-number{
+
+        width:45px;
+    }
+
+    .menu-contact{
+
+        flex-direction:column;
+    }
+
+    .hero{
+
+        min-height:750px;
+    }
+
+    .hero-logo{
+
+        width:75px;
+        height:75px;
+    }
+
+    .hero h1{
+
+        font-size:65px;
+
+        letter-spacing:-5px;
+    }
+
+    .hero-description{
+
+        font-size:14px;
+    }
+
+    .hero-meta{
+
+        display:none;
+    }
+
+    .statement h2,
+    .heading h2{
+
+        font-size:60px;
+
+        letter-spacing:-5px;
+    }
+
+    .coming{
+
+        padding:
+            100px 0;
+    }
+
+    .countdown{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .time{
+
+        padding:
+            25px 10px;
+    }
+
+    .time strong{
+
+        font-size:43px;
+    }
+
+    .about{
+
+        padding:
+            70px 0;
+    }
+
+    .about-image{
+
+        padding:20px;
+    }
+
+    .about-image img{
+
+        width:100%;
+    }
+
+    .about-content{
+
+        padding:
+            60px 25px;
+    }
+
+    .about-content h2{
+
+        font-size:65px;
+    }
+
+    .people{
+
+        grid-template-columns:1fr;
+    }
+
+    .person,
+    .person img{
+
+        min-height:480px;
+    }
+
+    .address{
+
+        width:90%;
+    }
+
+    .address-photo{
+
+        padding:30px;
+    }
+
+    .address-photo img{
+
+        width:78%;
+    }
+
+    .address-content{
+
+        padding:
+            45px 5%;
+    }
+
+    .address h3{
+
+        font-size:50px;
+    }
+
+    .sponsor{
+
+        padding:
+            100px 0;
+    }
+
+    .sponsor h2{
+
+        font-size:65px;
+    }
+
+    .contact h2{
+
+        font-size:65px;
+
+        letter-spacing:-5px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     FIXED SCHOOL BACKGROUND
+===================================================== -->
+
+<div class="fixed-school">
+
+    <img
+        src="school.jpg"
+        alt="Birla Public School">
+
+</div>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="navbar">
+
+    <a href="#home" class="brand">
+
+        <img
+            src="bps-logo.png"
+            alt="BPS Logo">
+
+        <div class="brand-name">
+
+            BPS<span>MUN</span> '27
+
+        </div>
+
+    </a>
+
+
+    <div class="nav-right">
+
+        <div class="edition">
+            2027 EDITION
+        </div>
+
+
+        <button
+            class="menu-button"
+            onclick="openMenu()"
+            aria-label="Open menu">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MENU
+===================================================== -->
+
+<div
+    class="menu"
+    id="menu">
+
+
+    <div class="menu-header">
+
+        <a
+            href="#home"
+            class="brand"
+            onclick="closeMenu()">
+
+            <img
+                src="bps-logo.png"
+                alt="BPS Logo">
+
+            <div class="brand-name">
+                BPS<span>MUN</span> '27
+            </div>
+
+        </a>
+
+
+        <button
+            class="close-button"
+            onclick="closeMenu()"
+            aria-label="Close menu">
+
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </div>
+
+
+    <div class="menu-inner">
+
+        <div class="menu-label">
+            EXPLORE BPSMUN '27
+        </div>
+
+
+        <a
+            class="menu-link"
+            href="#home"
+            onclick="closeMenu()">
+
+            <span class="menu-number">
+                01
+            </span>
+
+            HOME
+
+        </a>
+
+
+        <a
+            class="menu-link"
+            href="#about"
+            onclick="closeMenu()">
+
+            <span class="menu-number">
+                02
+            </span>
+
+            ABOUT BPS
+
+        </a>
+
+
+        <a
+            class="menu-link"
+            href="#committees"
+            onclick="closeMenu()">
+
+            <span class="menu-number">
+                03
+            </span>
+
+            COMMITTEES
+
+        </a>
+
+
+        <a
+            class="menu-link"
+            href="#secretariat"
+            onclick="closeMenu()">
+
+            <span class="menu-number">
+                04
+            </span>
+
+            SECRETARIAT
+
+        </a>
+
+
+        <a
+            class="menu-link"
+            href="#addressal"
+            onclick="closeMenu()">
+
+            <span class="menu-number">
+                05
+            </span>
+
+            ADDRESSAL
+
+        </a>
+
+
+        <a
+            class="menu-link"
+            href="#contact"
+            onclick="closeMenu()">
+
+            <span class="menu-number">
+                06
+            </span>
+
+            CONTACT
+
+        </a>
+
+
+        <div class="menu-contact">
+
+            <div>
+
+                <strong>BPSMUN '27</strong><br>
+
+                <a href="mailto:BPSMUN27@gmail.com">
+                    BPSMUN27@gmail.com
+                </a>
+
+                <br>
+
+                <a href="tel:+919560638414">
+                    +91 9560638414
+                </a>
+
+            </div>
+
+
+            <div>
+
+                BIRLA PUBLIC SCHOOL<br>
+                2027 EDITION
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section
+    class="hero"
+    id="home">
+
+
+    <div class="hero-content">
+
+        <img
+            class="hero-logo"
+            src="bps-logo.png"
+            alt="Birla Public School Logo">
+
+
+        <div class="hero-kicker">
+
+            BIRLA PUBLIC SCHOOL
+            •
+            2027
+
+        </div>
+
+
+        <h1>
+
+            BPSMUN
+            <span>'27</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Where diplomacy meets ambition.
+            Where ideas become action.
+            Where the next generation of leaders
+            enters the conversation.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#committees"
+                class="button button-red">
+
+                EXPLORE COMMITTEES →
+
+            </a>
+
+
+            <a
+                href="#about"
+                class="button button-outline">
+
+                DISCOVER BPSMUN
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-meta">
+
+        <div>
+            BPSMUN '27<br>
+            BIRLA PUBLIC SCHOOL
+        </div>
+
+
+        <a
+            href="#statement"
+            class="scroll-indicator">
+
+            SCROLL TO ENTER
+
+            <span>↓</span>
+
+        </a>
+
+
+        <div style="text-align:right">
+
+            THE NEXT CHAPTER<br>
+            2027
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATEMENT
+===================================================== -->
+
+<section
+    class="statement"
+    id="statement">
+
+    <div
+        class="section-inner">
+
+        <div class="label">
+            THE CONVERSATION BEGINS
+        </div>
+
+
+        <h2>
+
+            THE WORLD<br>
+
+            <span>IS LISTENING.</span>
+
+        </h2>
+
+
+        <p>
+
+            BPSMUN '27 is more than a conference.
+            It is a platform for diplomacy, negotiation,
+            leadership and ideas.
+
+            <br><br>
+
+            Step into the room.
+            Take your seat.
+            Make your voice matter.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COMING SOON
+===================================================== -->
+
+<section class="coming">
+
+    <div class="coming-inner">
+
+        <div class="coming-title">
+
+            <div class="label"
+                 style="color:#fff">
+
+                THE COUNTDOWN HAS BEGUN
+
+            </div>
+
+
+            <h2>
+                COMING SOON.
+            </h2>
+
+        </div>
+
+
+        <div class="countdown">
+
+            <div class="time">
+
+                <strong id="days">
+                    000
+                </strong>
+
+                <span>
+                    DAYS
+                </span>
+
+            </div>
+
+
+            <div class="time">
+
+                <strong id="hours">
+                    00
+                </strong>
+
+                <span>
+                    HOURS
+                </span>
+
+            </div>
+
+
+            <div class="time">
+
+                <strong id="minutes">
+                    00
+                </strong>
+
+                <span>
+                    MINUTES
+                </span>
+
+            </div>
+
+
+            <div class="time">
+
+                <strong id="seconds">
+                    00
+                </strong>
+
+                <span>
+                    SECONDS
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT BPS
+===================================================== -->
+
+<section
+    class="about"
+    id="about">
+
+
+    <div class="about-image">
+
+        <img
+            src="school.jpg"
+            alt="Birla Public School">
+
+    </div>
+
+
+    <div class="about-content">
+
+        <div class="label">
+            THE INSTITUTION
+        </div>
+
+
+        <h2>
+
+            BUILT<br>
+
+            <span>TO LEAD.</span>
+
+        </h2>
+
+
+        <div class="red-line"></div>
+
+
+        <p>
+
+            Birla Public School provides the foundation
+            behind BPSMUN '27.
+
+        </p>
+
+
+        <p>
+
+            A school is not simply a place where knowledge
+            is taught. It is where confidence is built,
+            questions are encouraged and leaders begin
+            to discover their voice.
+
+        </p>
+
+
+        <p>
+
+            BPSMUN carries that spirit beyond the classroom
+            and into the world of diplomacy.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COMMITTEES
+===================================================== -->
+
+<section
+    class="committees"
+    id="committees">
+
+
+    <div class="heading">
+
+        <div class="label">
+            CHOOSE YOUR ARENA
+        </div>
+
+
+        <h2>
+
+            THE<br>
+
+            <span>COMMITTEES.</span>
+
+        </h2>
+
+
+        <p>
+
+            Different rooms.
+            Different crises.
+            Different perspectives.
+
+            One objective:
+            make your voice count.
+
+        </p>
+
+    </div>
+
+
+    <div class="committee-grid">
+
+
+        <article class="committee">
+
+            <div class="committee-number">
+                COMMITTEE 01
+            </div>
+
+            <div>
+
+                <h3>
+                    UNGA
+                </h3>
+
+                <p>
+                    United Nations General Assembly
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="committee">
+
+            <div class="committee-number">
+                COMMITTEE 02
+            </div>
+
+            <div>
+
+                <h3>
+                    UNSC
+                </h3>
+
+                <p>
+                    United Nations Security Council
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="committee">
+
+            <div class="committee-number">
+                COMMITTEE 03
+            </div>
+
+            <div>
+
+                <h3>
+                    UNHRC
+                </h3>
+
+                <p>
+                    United Nations Human Rights Council
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="committee">
+
+            <div class="committee-number">
+                COMMITTEE 04
+            </div>
+
+            <div>
+
+                <h3>
+                    WHO
+                </h3>
+
+                <p>
+                    World Health Organization
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="committee">
+
+            <div class="committee-number">
+                COMMITTEE 05
+            </div>
+
+            <div>
+
+                <h3>
+                    ECOSOC
+                </h3>
+
+                <p>
+                    Economic and Social Council
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="committee">
+
+            <div class="committee-number">
+                COMMITTEE 06
+            </div>
+
+            <div>
+
+                <h3>
+                    HSC
+                </h3>
+
+                <p>
+                    Historical Security Council
+                </p>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SECRETARIAT
+===================================================== -->
+
+<section
+    class="secretariat"
+    id="secretariat">
+
+
+    <div class="heading">
+
+        <div class="label">
+            THE PEOPLE BEHIND THE CONFERENCE
+        </div>
+
+
+        <h2>
+
+            THE<br>
+
+            <span>SECRETARIAT.</span>
+
+        </h2>
+
+    </div>
+
+
+    <div class="people">
+
+
+        <article class="person">
+
+            <img
+                src="secgen.jpg"
+                alt="Secretary General">
+
+            <div class="person-info">
+
+                <div class="person-role">
+                    SECRETARY-GENERAL
+                </div>
+
+                <div class="person-name">
+                    NAME HERE
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="person">
+
+            <img
+                src="mundirector.jpg"
+                alt="MUN Director">
+
+            <div class="person-info">
+
+                <div class="person-role">
+                    MUN DIRECTOR
+                </div>
+
+                <div class="person-name">
+                    NAME HERE
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="person">
+
+            <img
+                src="secgen.jpg"
+                alt="Secretariat">
+
+            <div class="person-info">
+
+                <div class="person-role">
+                    SECRETARIAT
+                </div>
+
+                <div class="person-name">
+                    NAME HERE
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="person">
+
+            <img
+                src="mundirector.jpg"
+                alt="Secretariat">
+
+            <div class="person-info">
+
+                <div class="person-role">
+                    SECRETARIAT
+                </div>
+
+                <div class="person-name">
+                    NAME HERE
+                </div>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADDRESSAL
+===================================================== -->
+
+<section
+    class="addressal"
+    id="addressal">
+
+
+    <div class="heading">
+
+        <div class="label">
+            WORDS THAT LEAD
+        </div>
+
+
+        <h2>
+
+            ADDRESS<span>AL.</span>
+
+        </h2>
+
+
+        <p>
+            MESSAGES FROM THE LEADERSHIP
+        </p>
+
+    </div>
+
+
+    <!-- PRINCIPAL -->
+
+    <article
+        class="address"
+        id="principal">
+
+
+        <div class="address-photo">
+
+            <img
+                src="principal.jpg"
+                alt="Principal">
+
+        </div>
+
+
+        <div class="address-content">
+
+            <div class="address-number">
+                ADDRESSAL • 01
+            </div>
+
+
+            <h3>
+
+                PRINCIPAL'S<br>
+
+                <span>ADDRESS.</span>
+
+            </h3>
+
+
+            <div class="designation">
+                PRINCIPAL
+            </div>
+
+
+            <p class="message">
+
+                Insert the Principal's official
+                message for BPSMUN '27 here.
+
+            </p>
+
+
+            <div class="signature">
+                NAME OF PRINCIPAL
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <!-- SCHOOL DIRECTOR -->
+
+    <article
+        class="address"
+        id="director">
+
+
+        <div class="address-photo">
+
+            <img
+                src="director.jpg"
+                alt="School Director">
+
+        </div>
+
+
+        <div class="address-content">
+
+            <div class="address-number">
+                ADDRESSAL • 02
+            </div>
+
+
+            <h3>
+
+                SCHOOL<br>
+
+                <span>DIRECTOR.</span>
+
+            </h3>
+
+
+            <div class="designation">
+                SCHOOL DIRECTOR
+            </div>
+
+
+            <p class="message">
+
+                Insert the School Director's official
+                message here.
+
+            </p>
+
+
+            <div class="signature">
+                NAME OF SCHOOL DIRECTOR
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <!-- SECRETARY GENERAL -->
+
+    <article
+        class="address"
+        id="secgen">
+
+
+        <div class="address-photo">
+
+            <img
+                src="secgen.jpg"
+                alt="Secretary General">
+
+        </div>
+
+
+        <div class="address-content">
+
+            <div class="address-number">
+                ADDRESSAL • 03
+            </div>
+
+
+            <h3>
+
+                SECRETARY-<br>
+
+                <span>GENERAL.</span>
+
+            </h3>
+
+
+            <div class="designation">
+                SECRETARY-GENERAL • BPSMUN '27
+            </div>
+
+
+            <p class="message">
+
+                Insert the Secretary-General's official
+                message here.
+
+            </p>
+
+
+            <div class="signature">
+                NAME OF SECRETARY-GENERAL
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <!-- MUN DIRECTOR -->
+
+    <article
+        class="address"
+        id="mun-director">
+
+
+        <div class="address-photo">
+
+            <img
+                src="mundirector.jpg"
+                alt="MUN Director">
+
+        </div>
+
+
+        <div class="address-content">
+
+            <div class="address-number">
+                ADDRESSAL • 04
+            </div>
+
+
+            <h3>
+
+                MUN<br>
+
+                <span>DIRECTOR.</span>
+
+            </h3>
+
+
+            <div class="designation">
+                MUN DIRECTOR • BPSMUN '27
+            </div>
+
+
+            <p class="message">
+
+                Insert the MUN Director's official
+                message here.
+
+            </p>
+
+
+            <div class="signature">
+                NAME OF MUN DIRECTOR
+            </div>
+
+        </div>
+
+    </article>
+
+
+</section>
+
+
+<!-- =====================================================
+     COCA COLA SPONSOR
+===================================================== -->
+
+<section class="sponsor">
+
+    <div class="sponsor-inner">
+
+
+        <h2>
+
+            POWERING<br>
+
+            THE<br>
+
+            CONVERSATION.
+
+        </h2>
+
+
+        <div class="sponsor-copy">
+
+            <small>
+                PROUDLY SUPPORTED BY
+            </small>
+
+
+            <h3>
+                COCA-COLA
+            </h3>
+
+
+            <p>
+
+                BPSMUN '27 is proud to have
+                Coca-Cola supporting the conference
+                and the next generation of voices.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+    class="contact"
+    id="contact">
+
+
+    <div>
+
+        <div class="label">
+
+            THE NEXT MOVE IS YOURS
+
+        </div>
+
+
+        <h2>
+
+            YOUR VOICE.<br>
+
+            <span>YOUR MOMENT.</span>
+
+        </h2>
+
+
+        <p>
+
+            Have a question about BPSMUN '27?
+            Contact the conference team.
+
+        </p>
+
+
+        <a
+            class="contact-button"
+
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=BPSMUN27@gmail.com"
+
+            target="_blank">
+
+            CONTACT BPSMUN '27 →
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+    <div>
+
+        <div class="footer-brand">
+
+            <img
+                src="bps-logo.png"
+                alt="BPS Logo">
+
+
+            <strong>
+
+                BPS<span>MUN</span> '27
+
+            </strong>
+
+        </div>
+
+
+        <div class="footer-info">
+
+            BIRLA PUBLIC SCHOOL<br>
+
+            2027 EDITION
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-info">
+
+        <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=BPSMUN27@gmail.com"
+            target="_blank">
+
+            BPSMUN27@gmail.com
+
+        </a>
+
+        <br>
+
+
+        <a href="tel:+919560638414">
+
+            +91 9560638414
+
+        </a>
+
+
+        <br>
+
+        BPSMUN27.COM
+
+    </div>
+
+
+    <div class="footer-right">
+
+        © 2027 BPSMUN '27<br>
+
+        ALL RIGHTS RESERVED.
+
+    </div>
+
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+function openMenu(){
+
+    document
+        .getElementById("menu")
+        .classList.add("open");
+
+    document.body.style.overflow="hidden";
+
+}
+
+
+function closeMenu(){
+
+    document
+        .getElementById("menu")
+        .classList.remove("open");
+
+    document.body.style.overflow="";
+
+}
+
+
+/* ESC KEY */
+
+document.addEventListener(
+    "keydown",
+
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeMenu();
+
+        }
+
+    }
+
+);
+
+
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+/*
+   CHANGE THIS DATE TO YOUR ACTUAL
+   BPSMUN 2027 DATE.
+
+   Example:
+   "2027-08-15T09:00:00"
+*/
+
+const conferenceDate =
+    new Date(
+        "2027-08-15T09:00:00"
+    ).getTime();
+
+
+function updateCountdown(){
+
+    const now =
+        new Date().getTime();
+
+
+    const difference =
+        conferenceDate - now;
+
+
+    if(difference <= 0){
+
+        document
+            .getElementById("days")
+            .textContent = "000";
+
+        document
+            .getElementById("hours")
+            .textContent = "00";
+
+        document
+            .getElementById("minutes")
+            .textContent = "00";
+
+        document
+            .getElementById("seconds")
+            .textContent = "00";
+
+        return;
+
+    }
+
+
+    const days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    const hours =
+        Math.floor(
+            (difference /
+            (1000 * 60 * 60)) % 24
+        );
+
+
+    const minutes =
+        Math.floor(
+            (difference /
+            (1000 * 60)) % 60
+        );
+
+
+    const seconds =
+        Math.floor(
+            (difference / 1000) % 60
+        );
+
+
+    document
+        .getElementById("days")
+        .textContent =
+        String(days)
+        .padStart(3,"0");
+
+
+    document
+        .getElementById("hours")
+        .textContent =
+        String(hours)
+        .padStart(2,"0");
+
+
+    document
+        .getElementById("minutes")
+        .textContent =
+        String(minutes)
+        .padStart(2,"0");
+
+
+    document
+        .getElementById("seconds")
+        .textContent =
+        String(seconds)
+        .padStart(2,"0");
+
+}
+
+
+updateCountdown();
+
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+
+</script>
+
+</body>
+</html>
